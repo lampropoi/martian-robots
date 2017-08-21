@@ -10,6 +10,15 @@ const Wrapper = styled.button`
   border: 0;
   border-radius: 4px;
   font-size: 12px;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  &:active {
+    opacity: 0.3;
+  }
 `;
 
 const Button = ({
@@ -21,7 +30,7 @@ const Button = ({
 }) => (
   <Wrapper
     disabled={disabled}
-    onClick={onClick(clickData)}
+    onClick={onClick && onClick(clickData)}
     design={design}
     type='button'
   >{text}</Wrapper>
@@ -29,7 +38,8 @@ const Button = ({
 
 Button.defaultProps = {
   clickData: null,
-  disabled: false
+  disabled: false,
+  onClick: null
 };
 
 Button.propTypes = {
@@ -48,7 +58,7 @@ Button.propTypes = {
   /**
    * On click of the component, the function that will run
    */
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   /**
    * Text shown in the button
    */
