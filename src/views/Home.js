@@ -72,19 +72,24 @@ class Home extends Component {
    */
   handleMove() {
     const {result, history, martianArea} = move(this.state.value);
-
     // let's create the desired output
-    const formattedResult = result.reduce((a, b) => `${a}
-${b.robot.x} ${b.robot.y} ${b.robot.d} ${b.status}`.trim(), '');
+    if (/ERROR/i.test(result)) {
+      this.setState(() => ({
+        value: result
+      }));
+    } else {
+      const formattedResult = result.reduce((a, b) => `${a}
+      ${b.robot.x} ${b.robot.y} ${b.robot.d} ${b.status}`.trim(), '');
 
-    // the proper way to do this is with Redux, but let's skip it for now
-    localStorage.setItem('history', JSON.stringify(history));
-    localStorage.setItem('martianArea', JSON.stringify(martianArea));
+      // the proper way to do this is with Redux, but let's skip it for now
+      localStorage.setItem('history', JSON.stringify(history));
+      localStorage.setItem('martianArea', JSON.stringify(martianArea));
 
-    this.setState(() => ({
-      value: formattedResult,
-      history
-    }));
+      this.setState(() => ({
+        value: formattedResult,
+        history
+      }));
+    }
   }
 
   /**
