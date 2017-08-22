@@ -170,9 +170,9 @@ const validate = ({martianArea, robots}) => {
   let error = '';
 
   if (martianArea.x > 50 || martianArea.y > 50) {
-    error = 'Coordinates must be 50 or less';
+    error = 'ERROR - Coordinates must be 50 or less';
   } else if (!robots.every(element => element.directions.length <= 100)) {
-    error = 'Directions must be 100 or less';
+    error = 'ERROR - Directions must be 100 or less';
   }
 
   return error;
