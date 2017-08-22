@@ -17,7 +17,7 @@ const Title = styled.h1`
 
 const Textarea = styled.textarea`
   width: 300px;
-  height: 300px;
+  height: 200px;
   font-size: 12px;
   color: black;
 `;

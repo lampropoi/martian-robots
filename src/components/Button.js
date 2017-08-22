@@ -6,7 +6,7 @@ import colors from '../modules/colors';
 const Wrapper = styled.button`
   background-color: ${props => (props.design === 'primary' ? colors.blue : colors.green)};
   color: ${colors.white};
-  padding: 4px 8px;
+  padding: 10px 20px;
   border: 0;
   border-radius: 4px;
   font-size: 16px;
