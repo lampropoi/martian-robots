@@ -12,13 +12,14 @@ const Content = styled.main`
 `;
 
 const Title = styled.h1`
-  font-size: 20px;
+  font-size: 24px;
 `;
 
 const Textarea = styled.textarea`
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   font-size: 12px;
+  color: black;
 `;
 
 const ButtonArea = styled.div`
@@ -28,6 +29,9 @@ const ButtonArea = styled.div`
   width: 20%;
 `;
 
+/**
+ * The home view
+ */
 class Home extends Component {
   /**
    * The class constructor
@@ -38,10 +42,15 @@ class Home extends Component {
 
     this.state = {
       /**
+       * A history of all the actions that the robots do
+       * @type {Array}
+       */
+      history: [],
+      /**
        * The text in the textarea
        * @type {String}
        */
-      value: 'Insert the instructions!'
+      value: ''
     };
 
     // bindings
@@ -59,17 +68,33 @@ class Home extends Component {
 
   /**
    * Handle the click of the result button to find the robots movement
+   * Updates the output
    */
   handleMove() {
-    const result = move();
-    this.setState(() => ({value: result}));
+    const {result, history, martianArea} = move(this.state.value);
+
+    // let's create the desired output
+    const formattedResult = result.reduce((a, b) => `${a}
+${b.robot.x} ${b.robot.y} ${b.robot.d} ${b.status}`.trim(), '');
+
+    // the proper way to do this is with Redux, but let's skip it for now
+    localStorage.setItem('history', JSON.stringify(history));
+    localStorage.setItem('martianArea', JSON.stringify(martianArea));
+
+    this.setState(() => ({
+      value: formattedResult,
+      history
+    }));
   }
 
+  /**
+   * The component render function
+   */
   render() {
     return (
       <Content>
         <Title>Robots Instructions</Title>
-        <Textarea value={this.state.value} onChange={this.handleChange} />
+        <Textarea placeholer={'Insert Instructions...'} value={this.state.value} onChange={this.handleChange} />
         <ButtonArea>
           <Button
             design='primary'
@@ -79,6 +104,7 @@ class Home extends Component {
           <Link to='/simulate'>
             <Button
               design='secondary'
+              disabled={!this.state.history.length}
               text='Simulate'
             />
           </Link>

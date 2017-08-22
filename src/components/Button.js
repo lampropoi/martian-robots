@@ -9,7 +9,7 @@ const Wrapper = styled.button`
   padding: 4px 8px;
   border: 0;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 16px;
   cursor: pointer;
 
   &:hover {
@@ -19,10 +19,17 @@ const Wrapper = styled.button`
   &:active {
     opacity: 0.3;
   }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
 `;
 
+/**
+ * A simple button component
+ */
 const Button = ({
-  clickData,
   design,
   disabled,
   onClick,
@@ -30,7 +37,7 @@ const Button = ({
 }) => (
   <Wrapper
     disabled={disabled}
-    onClick={onClick && onClick(clickData)}
+    onClick={onClick && onClick()}
     design={design}
     type='button'
   >{text}</Wrapper>
@@ -43,10 +50,6 @@ Button.defaultProps = {
 };
 
 Button.propTypes = {
-  /**
-   * Data passed on button click
-   */
-  clickData: PropTypes.any,
   /**
    * The button design
    */

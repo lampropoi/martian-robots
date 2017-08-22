@@ -4,7 +4,8 @@ import React from 'react';
 import styled, {injectGlobal} from 'styled-components';
 import {
   BrowserRouter as Router,
-  Route
+  Route,
+  Link
 } from 'react-router-dom';
 import Home from './views/Home';
 import Simulate from './views/Simulate';
@@ -29,12 +30,19 @@ const Wrapper = styled.div`
 const Header = styled.header`
   background-color: ${colors.red};
   height: 100px;
-  padding: 20px;
+  padding: 40px;
+  font-size: 30px;
   color: white;
+  margin-bottom: 30px;
+
+  a {
+    color: ${colors.white};
+    text-decoration: none;
+  }
 `;
 
 const Footer = styled.footer`
-  font-size: 10px;
+  font-size: 14px;
   text-align: right;
   padding: 10px;
   position: absolute;
@@ -43,11 +51,14 @@ const Footer = styled.footer`
   left: 0;
 `;
 
+/**
+ * The main app component
+ */
 const App = () => (
   <Router>
     <Wrapper>
       <Header>
-        <h2>Exploring the red planet!</h2>
+        <Link to='/'><h2>Exploring the red planet!</h2></Link>
       </Header>
       <Route exact={true} path='/' component={Home} />
       <Route path='/simulate' component={Simulate} />
